@@ -169,6 +169,7 @@
 				element.css( {
 					top: top,
 					left: left,
+					margin: 0,
 					display: 'block',
 					position: 'absolute'
 				});
