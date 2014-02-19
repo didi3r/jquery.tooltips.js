@@ -1,0 +1,133 @@
+.tutorial-wrapper {
+	position: absolute;
+}
+
+.tooltips-overlay {
+	position:fixed;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 500;
+}
+
+.tooltip-box {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-sizing: border-box;
+	box-shadow: 3px 3px 10px #333;
+	background: white;
+	padding: 16px;
+	width: 320px;
+	min-height: 200px;
+	max-height: 520px;
+	display: none;
+	position: absolute;
+	top: 100px;
+	bottom: 0;
+	left: 100px;
+	right: 0;
+	z-index: 9999;
+	opacity: 0;
+}
+
+.tooltip-box .arrow {
+	display: block;
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 30px solid white;
+	position: relative;
+	top: -35px;
+	left: 50%;
+	margin-bottom: -25px; 
+	z-index: -1;
+}
+
+.tooltip-box .arrow.invisible {
+	display: none;
+}
+
+.tooltip-box .arrow.left {
+	border-left: 0;
+	border-right: 20px solid transparent;
+	border-bottom: 30px solid white;
+	left: 0;
+}
+
+.tooltip-box .arrow.right {
+	border-right: 0;
+	border-left: 20px solid transparent;
+	border-bottom: 30px solid white;
+	right: 0;
+}
+
+.tooltip-box .arrow.bottom {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 30px solid white;
+	border-bottom: 0;
+}
+
+.tooltip-box a.close {
+	font-size: 22px;
+	margin-top: 10px;
+	color: #000;
+	text-decoration: none;
+	display: block;
+	float: right;
+}
+
+.tooltip-box a.close:hover {
+	color: #666;
+}
+
+.tooltip-box h4 {
+	font-weight: bold;
+}
+
+.tooltip-box img {
+	margin: 10px auto;
+}
+
+.tooltip-box p {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.tooltip-box p.centered {
+	text-align: center;
+}
+
+.tooltip-box .button {
+	background: #009FB2;
+	border-radius: 5px;
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
+	display: inline-block;
+}
+
+.tooltip-box .button:hover,
+.tooltip-box .button:active,
+.tooltip-box .button:focus {
+	background: #1fb3c4;
+}
+
+.tooltip-box .button.back {
+	background: #4e5a68;
+}
+
+.tooltip-box .button.back:hover,
+.tooltip-box .button.back:active,
+.tooltip-box .button.back:focus {
+	background: #70767c;
+}
+
+.tooltip-box .centered {
+	margin: 0 auto;
+}
