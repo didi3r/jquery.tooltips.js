@@ -70,13 +70,26 @@
 			return totalHeight;
 		}
 
-		var goToNextTooltip = function(next) {
-			next = next <  0 ? current + next : next;
-			next = next == 0 ? current + 1 : next;
-			nextElement = $('.tooltip-box.box' + next);
-			if( nextElement.length != 0 ) {
-				show( nextElement );
-				current = next;
+		var goToNextTooltip = function(step) {
+			var backwards;
+			if(step < 0) {
+				backwards = true;
+				step = current + step;
+			} else {
+				backwards = false;
+			}
+
+			step = step == 0 ? current + 1 : step;
+			nextElement = $('.tooltip-box.box' + step);
+			hide(  $('.tooltip-box.box' + current) );
+			if(nextElement.length != 0) {
+				current = step;
+				if(!show(nextElement)) {
+					if(backwards)
+						goToNextTooltip(-1);
+					else
+						goToNextTooltip(0);
+				} 
 			} else {
 				current = 1;
 				lightsOn();
@@ -108,10 +121,8 @@
 		/* Calculates and set the position of every tooltip  */
 		var setPosition = function (element, anchor) {
 			element.children('.arrow').removeClass('invisible');
-
 			if(settings.positioning == 'anchor') {
 				if(anchor.length == 0 || !isElementShown(anchor)) {
-					goToNextTooltip(0);
 					return false;
 				}
 				var BOX_HEIGHT = element.outerHeight();
@@ -177,20 +188,26 @@
 					position: 'fixed'
 				});
 			}
+
+			return true;
 		}
 
 		/* Shows tooltips */
 		var show = function (element) {
 			element.addClass('active');
-			setPosition(element, $(element.data('anchor')) );
-			element.animate({opacity: 1}, 300);
+			if( setPosition(element, $(element.data('anchor'))) ) {
+				element.animate({opacity: 1}, 300);
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/* Hides tooltips */
 		var hide = function (element) {
 			element.removeClass('active');
 			element.animate({opacity: 0}, 300, function() {
-				element.css('display', 'none');
+				if( !element.hasClass('active') ) element.css('display', 'none');
 			});
 		}
 
@@ -217,7 +234,6 @@
 
 		/* Public Methods */
 		this.setPositioning = function (value) {
-			// console.log('V:' + value + '- S:' + settings.positioning)
 			if(value != settings.positioning && (value == 'anchor' || value == 'centered')) {
 		    	settings.positioning = value;
 		    	var element = $('.tooltip-box.active');
@@ -235,15 +251,13 @@
 		/* Actions */
 		$('.tooltip-box a.close').click(function(event) {
 			event.preventDefault();
-
-			hide( $(this).parent() );
+			
 			lightsOn();
 		});
 
 		$('.tooltip-box .button').click(function(event) {
 			event.preventDefault();
-			hide( $(this).parent().parent() );
-			
+		
 			var next = $(this).data('goto') ? $(this).data('goto') : current + 1;
 			goToNextTooltip(next);
 		});
